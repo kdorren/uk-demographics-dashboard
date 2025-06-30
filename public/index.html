@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UK Demographics Live Dashboard</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🇬🇧 UK Demographics Live Dashboard</h1>
+            <p class="subtitle">Real-time tracking of population changes from World Bank & International Sources</p>
+            <div class="connection-status" id="connectionStatus">
+                <span class="status-dot"></span>
+                <span class="status-text">Connecting...</span>
+            </div>
+            <div class="data-source" id="dataSource">
+                <span class="source-label">Data Source:</span>
+                <span class="source-value">Loading...</span>
+            </div>
+        </header>
+
+        <div class="stats-grid">
+            <div class="stat-card" id="over65Card">
+                <div class="stat-header">
+                    <h2>People Aged 65+</h2>
+                    <div class="stat-icon">👴👵</div>
+                </div>
+                <div class="stat-main">
+                    <div class="stat-number" id="over65Count">0</div>
+                    <div class="stat-label">Total Population</div>
+                </div>
+                <div class="stat-detail">
+                    <div class="stat-change positive" id="over65Change">
+                        <span class="change-arrow">↗</span>
+                        <span class="change-value">0</span>
+                        <span class="change-label">daily increase</span>
+                    </div>
+                </div>
+                <div class="stat-chart">
+                    <canvas id="over65Chart"></canvas>
+                </div>
+            </div>
+
+            <div class="stat-card" id="birthsCard">
+                <div class="stat-header">
+                    <h2>Annual Births</h2>
+                    <div class="stat-icon">👶</div>
+                </div>
+                <div class="stat-main">
+                    <div class="stat-number" id="birthsCount">0</div>
+                    <div class="stat-label">Total Annual</div>
+                </div>
+                <div class="stat-detail">
+                    <div class="stat-change positive" id="birthsChange">
+                        <span class="change-arrow">↗</span>
+                        <span class="change-value">0</span>
+                        <span class="change-label">daily average</span>
+                    </div>
+                </div>
+                <div class="stat-chart">
+                    <canvas id="birthsChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-section">
+            <h2>Population Balance</h2>
+            <div class="comparison-chart">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </div>
+
+        <div class="info-section">
+            <div class="info-card">
+                <h3>About This Data</h3>
+                <p>This dashboard displays real demographic data from multiple international sources including the World Bank, Eurostat, and UN Population Division. The data is updated every 30 seconds and shows the latest available UK statistics.</p>
+                <ul>
+                    <li><strong>65+ Population:</strong> Total number of people aged 65 and over in the UK</li>
+                    <li><strong>Birth Rate:</strong> Annual birth statistics with daily averages</li>
+                    <li><strong>Data Sources:</strong> World Bank API, Eurostat, UN Population Division</li>
+                    <li><strong>Update Frequency:</strong> Every 30 seconds (external data cached for 10 minutes)</li>
+                </ul>
+                <div class="api-status">
+                    <h4>Data Source Status</h4>
+                    <div class="status-indicators">
+                        <div class="status-item">
+                            <span class="status-label">Primary Source:</span>
+                            <span class="status-value" id="primarySource">World Bank</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Last Data Update:</span>
+                            <span class="status-value" id="lastDataUpdate">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Next Update:</span>
+                            <span class="status-value" id="nextUpdate">-</span>
+                        </div>
+                        <div class="status-item">
+                            <span class="status-label">Available Sources:</span>
+                            <span class="status-value">World Bank, Eurostat, UN</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>Last updated: <span id="lastUpdate">-</span></p>
+            <p>Data from World Bank, Eurostat & UN Population Division | Updates every 30 seconds</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html> 
