@@ -230,12 +230,12 @@ function updateDemographicsSimulated() {
 
 // Main update function
 async function updateDemographics() {
-  // Try to fetch real data every 10 minutes
+  // Try to fetch real data every 24 hours (daily)
   const now = new Date();
   const timeSinceLastFetch = dataCache.lastFetch ? 
-    (now - dataCache.lastFetch) / (1000 * 60) : 999; // minutes
+    (now - dataCache.lastFetch) / (1000 * 60 * 60) : 999; // hours
   
-  if (timeSinceLastFetch >= 10) {
+  if (timeSinceLastFetch >= 24) {
     await updateDemographicsWithRealData();
   } else {
     // Use cached data but update timestamps
@@ -248,8 +248,9 @@ async function updateDemographics() {
   io.emit('demographicsUpdate', demographicData);
 }
 
-// Update data every 30 seconds (less frequent for real API)
-setInterval(updateDemographics, 30000);
+// Update data every 24 hours (daily updates)
+const DAILY_UPDATE_INTERVAL = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+setInterval(updateDemographics, DAILY_UPDATE_INTERVAL);
 
 // Initial data fetch
 updateDemographicsWithRealData();
@@ -284,9 +285,10 @@ app.get('/api/status', (req, res) => {
     status: 'online',
     lastDataUpdate: dataCache.lastFetch,
     dataSource: demographicData.over65.source,
-    nextUpdate: new Date(Date.now() + 30000),
+    nextUpdate: new Date(Date.now() + DAILY_UPDATE_INTERVAL),
     dataSources: ['World Bank', 'Eurostat', 'UN Population Division'],
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    updateFrequency: 'Daily (24 hours)'
   });
 });
 
@@ -296,7 +298,8 @@ app.get('/health', (req, res) => {
     status: 'healthy',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    dataSource: demographicData.over65.source
+    dataSource: demographicData.over65.source,
+    lastUpdate: demographicData.over65.lastUpdate
   });
 });
 
@@ -312,6 +315,6 @@ server.listen(PORT, () => {
   console.log(`📍 Server running on port ${PORT}`);
   console.log(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
   console.log(`📊 Data Source: World Bank API`);
-  console.log(`🔄 Updates every 30 seconds`);
+  console.log(`🔄 Updates: Daily (every 24 hours)`);
   console.log(`📈 Visit the dashboard to see live UK demographic data!`);
 }); 

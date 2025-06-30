@@ -303,8 +303,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
     
-    // Check API status every 30 seconds
-    setInterval(checkAPIStatus, 30000);
+    // Check API status every hour (since data updates daily)
+    setInterval(checkAPIStatus, 60 * 60 * 1000);
 });
 
 // Handle window resize

@@ -13,7 +13,7 @@
     <div class="container">
         <header class="header">
             <h1>🇬🇧 UK Demographics Live Dashboard</h1>
-            <p class="subtitle">Real-time tracking of population changes from World Bank & International Sources</p>
+            <p class="subtitle">Daily tracking of population changes from World Bank & International Sources</p>
             <div class="connection-status" id="connectionStatus">
                 <span class="status-dot"></span>
                 <span class="status-text">Connecting...</span>
@@ -78,12 +78,12 @@
         <div class="info-section">
             <div class="info-card">
                 <h3>About This Data</h3>
-                <p>This dashboard displays real demographic data from multiple international sources including the World Bank, Eurostat, and UN Population Division. The data is updated every 30 seconds and shows the latest available UK statistics.</p>
+                <p>This dashboard displays real demographic data from multiple international sources including the World Bank, Eurostat, and UN Population Division. The data is updated daily and shows the latest available UK statistics.</p>
                 <ul>
                     <li><strong>65+ Population:</strong> Total number of people aged 65 and over in the UK</li>
                     <li><strong>Birth Rate:</strong> Annual birth statistics with daily averages</li>
                     <li><strong>Data Sources:</strong> World Bank API, Eurostat, UN Population Division</li>
-                    <li><strong>Update Frequency:</strong> Every 30 seconds (external data cached for 10 minutes)</li>
+                    <li><strong>Update Frequency:</strong> Daily (every 24 hours)</li>
                 </ul>
                 <div class="api-status">
                     <h4>Data Source Status</h4>
@@ -101,8 +101,8 @@
                             <span class="status-value" id="nextUpdate">-</span>
                         </div>
                         <div class="status-item">
-                            <span class="status-label">Available Sources:</span>
-                            <span class="status-value">World Bank, Eurostat, UN</span>
+                            <span class="status-label">Update Frequency:</span>
+                            <span class="status-value">Daily (24 hours)</span>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
 
         <footer class="footer">
             <p>Last updated: <span id="lastUpdate">-</span></p>
-            <p>Data from World Bank, Eurostat & UN Population Division | Updates every 30 seconds</p>
+            <p>Data from World Bank, Eurostat & UN Population Division | Updates daily</p>
         </footer>
     </div>
 
